@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#define INF 9999
+
+typedef struct {
+    int u, v, weight;
+} Edge;
+
+int compareEdges(const void *a, const void *b) {
+    Edge *edgeA = (Edge *)a;
+    Edge *edgeB = (Edge *)b;
+    if (edgeA->weight != edgeB->weight) {
+        return edgeA->weight - edgeB->weight;
+    }
+    if (edgeA->u != edgeB->u) {
+        return edgeA->u - edgeB->u;
+    }
+    return edgeA->v - edgeB->v;
+}
+
+int findSet(int i, int parent[]) {
+    if (parent[i] == i)
+        return i;
+    return parent[i] = findSet(parent[i], parent);
+}
+
+void unionSet(int i, int j, int parent[]) {
+    int rootI = findSet(i, parent);
+    int rootJ = findSet(j, parent);
+    if (rootI != rootJ) {
+        parent[rootI] = rootJ;
+    }
+}
+
+void kruskalMST(int **cost, int V) {
+}
